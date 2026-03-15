@@ -4,538 +4,1353 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Autentico — Ricette del Mondo</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 :root {
-  --bg: #FAF7F2;
-  --terracotta: #C4614A;
-  --terracotta-dark: #9E4A36;
-  --gold: #C9A84C;
-  --text: #1A1A1A;
-  --text-muted: #7A7570;
-  --border: #E5E0D8;
-  --white: #FFFFFF;
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans: 'DM Sans', sans-serif;
+  --bg:#FAF7F2; --terracotta:#C4614A; --terracotta-dark:#9E4A36;
+  --gold:#C9A84C; --text:#1A1A1A; --muted:#7A7570; --border:#E5E0D8;
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',sans-serif;
 }
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); background:var(--bg); color:var(--text); overflow-x:hidden; }
 
-html { scroll-behavior: smooth; }
-body { font-family: var(--sans); background: var(--bg); color: var(--text); overflow-x: hidden; }
-
-/* ── HEADER ── */
 header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(250,247,242,0.92); backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 64px;
+  position:sticky; top:0; z-index:200;
+  background:rgba(250,247,242,.94); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 40px; height:64px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
 }
-.logo { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.3px; }
-.logo span { color: var(--terracotta); }
-nav-links { display: flex; gap: 28px; }
-.nav-links a { font-size: 14px; color: var(--text-muted); text-decoration: none; transition: color .2s; }
-.nav-links a:hover { color: var(--terracotta); }
-.search-wrap { position: relative; }
+.logo { font-family:var(--serif); font-size:22px; font-weight:600; text-decoration:none; color:var(--text); }
+.logo span { color:var(--terracotta); }
+.header-right { display:flex; align-items:center; gap:14px; }
+.search-wrap { position:relative; }
 .search-wrap input {
-  border: 1.5px solid var(--border); border-radius: 24px;
-  padding: 8px 16px 8px 38px; font-size: 14px; font-family: var(--sans);
-  background: white; outline: none; width: 220px; transition: border .2s, width .3s;
+  border:1.5px solid var(--border); border-radius:24px;
+  padding:8px 16px 8px 38px; font-size:14px; font-family:var(--sans);
+  background:#fff; outline:none; width:200px; transition:border .2s,width .3s;
 }
-.search-wrap input:focus { border-color: var(--terracotta); width: 280px; }
-.search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+.search-wrap input:focus { border-color:var(--terracotta); width:260px; }
+.search-wrap svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+.btn-add-hdr {
+  background:var(--terracotta); color:#fff; border:none; border-radius:24px;
+  padding:9px 18px; font-size:14px; font-weight:500; cursor:pointer;
+  font-family:var(--sans); white-space:nowrap; transition:background .2s;
+  display:flex; align-items:center; gap:6px;
+}
+.btn-add-hdr:hover { background:var(--terracotta-dark); }
 
-/* ── HERO ── */
 .hero {
-  min-height: 88vh;
-  display: grid; grid-template-columns: 1fr 1fr; align-items: center;
-  padding: 80px 80px 80px 80px; gap: 60px;
-  position: relative; overflow: hidden;
+  display:grid; grid-template-columns:1fr 1fr; align-items:center;
+  padding:80px; gap:60px; min-height:86vh; position:relative; overflow:hidden;
 }
 .hero::before {
-  content: '';
-  position: absolute; top: -100px; right: -100px;
-  width: 600px; height: 600px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(196,97,74,.08) 0%, transparent 70%);
-  pointer-events: none;
+  content:''; position:absolute; top:-80px; right:-80px;
+  width:500px; height:500px; border-radius:50%;
+  background:radial-gradient(circle,rgba(196,97,74,.07) 0%,transparent 70%);
+  pointer-events:none;
 }
-.hero-text { max-width: 520px; }
 .hero-tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(196,97,74,.1); color: var(--terracotta);
-  border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 500;
-  letter-spacing: .5px; text-transform: uppercase; margin-bottom: 24px;
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(196,97,74,.1); color:var(--terracotta);
+  border-radius:20px; padding:5px 14px; font-size:12px; font-weight:500;
+  text-transform:uppercase; letter-spacing:.5px; margin-bottom:22px;
 }
-.hero h1 {
-  font-family: var(--serif); font-size: clamp(42px, 5vw, 68px);
-  font-weight: 600; line-height: 1.08; letter-spacing: -1px;
-  margin-bottom: 20px;
-}
-.hero h1 em { font-style: italic; color: var(--terracotta); }
-.hero p { font-size: 17px; color: var(--text-muted); line-height: 1.7; margin-bottom: 36px; max-width: 420px; }
-.hero-actions { display: flex; gap: 14px; align-items: center; }
+.hero h1 { font-family:var(--serif); font-size:clamp(40px,5vw,66px); font-weight:600; line-height:1.08; letter-spacing:-1px; margin-bottom:18px; }
+.hero h1 em { font-style:italic; color:var(--terracotta); }
+.hero p { font-size:16px; color:var(--muted); line-height:1.7; margin-bottom:32px; max-width:400px; }
+.hero-btns { display:flex; gap:14px; align-items:center; }
 .btn-primary {
-  background: var(--terracotta); color: white; border: none;
-  border-radius: 30px; padding: 14px 28px; font-size: 15px; font-weight: 500;
-  cursor: pointer; font-family: var(--sans); text-decoration: none;
-  transition: background .2s, transform .15s, box-shadow .2s;
-  box-shadow: 0 4px 20px rgba(196,97,74,.35);
+  background:var(--terracotta); color:#fff; border:none; border-radius:30px;
+  padding:14px 28px; font-size:15px; font-weight:500; cursor:pointer;
+  font-family:var(--sans); text-decoration:none; transition:background .2s,transform .15s;
+  box-shadow:0 4px 20px rgba(196,97,74,.35);
 }
-.btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); box-shadow: 0 6px 28px rgba(196,97,74,.45); }
-.btn-secondary {
-  color: var(--text); font-size: 15px; font-weight: 500; text-decoration: none;
-  display: flex; align-items: center; gap: 6px; transition: color .2s;
-}
-.btn-secondary:hover { color: var(--terracotta); }
-.hero-stats { display: flex; gap: 36px; margin-top: 48px; padding-top: 36px; border-top: 1px solid var(--border); }
-.stat-num { font-family: var(--serif); font-size: 28px; font-weight: 600; }
-.stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 2px; }
+.btn-primary:hover { background:var(--terracotta-dark); transform:translateY(-1px); }
+.btn-ghost { color:var(--text); font-size:15px; text-decoration:none; display:flex; align-items:center; gap:6px; transition:color .2s; }
+.btn-ghost:hover { color:var(--terracotta); }
+.hero-stats { display:flex; gap:36px; margin-top:44px; padding-top:32px; border-top:1px solid var(--border); }
+.stat-n { font-family:var(--serif); font-size:28px; font-weight:600; }
+.stat-l { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-top:2px; }
+.hero-imgs { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:12px; height:500px; }
+.h-img { border-radius:18px; overflow:hidden; position:relative; }
+.h-img img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+.h-img:hover img { transform:scale(1.05); }
+.h-img:first-child { grid-row:span 2; }
+.h-img-ov { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,.6),transparent 60%); padding:14px; color:#fff; }
+.h-img-ov strong { font-family:var(--serif); font-size:15px; }
+.h-img-ov small { display:block; font-size:10px; opacity:.7; text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
 
-.hero-visual { position: relative; }
-.hero-grid {
-  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-  gap: 12px; height: 520px;
+.section { padding:48px 80px; }
+.section-title { font-family:var(--serif); font-size:30px; margin-bottom:20px; }
+.filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+.f-btn {
+  border:1.5px solid var(--border); border-radius:24px; padding:7px 18px;
+  font-size:14px; background:#fff; cursor:pointer; font-family:var(--sans);
+  transition:all .2s; color:var(--text);
 }
-.hero-img { border-radius: 20px; overflow: hidden; position: relative; }
-.hero-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-.hero-img:hover img { transform: scale(1.05); }
-.hero-img:first-child { grid-row: span 2; }
-.hero-img-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 60%);
-  padding: 16px; color: white;
-}
-.hero-img-overlay span { font-family: var(--serif); font-size: 15px; }
-.hero-img-region { font-size: 11px; opacity: .7; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+.f-btn:hover { border-color:var(--terracotta); color:var(--terracotta); }
+.f-btn.active { background:var(--text); color:#fff; border-color:var(--text); }
+.recipes-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:24px; }
+.no-results { grid-column:1/-1; text-align:center; padding:60px; color:var(--muted); font-size:16px; }
 
-/* ── FILTERS ── */
-.filters-section { padding: 48px 80px 24px; }
-.filters-section h2 { font-family: var(--serif); font-size: 32px; margin-bottom: 20px; }
-.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; }
-.filter-btn {
-  border: 1.5px solid var(--border); border-radius: 24px;
-  padding: 8px 20px; font-size: 14px; background: white; cursor: pointer;
-  font-family: var(--sans); transition: all .2s; color: var(--text);
+.rcard {
+  background:#fff; border-radius:20px; overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.06); cursor:pointer;
+  transition:transform .25s,box-shadow .25s; display:block; text-decoration:none; color:inherit;
 }
-.filter-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
-.filter-btn.active { background: var(--text); color: white; border-color: var(--text); }
+.rcard:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(0,0,0,.12); }
+.rcard-img { position:relative; height:210px; overflow:hidden; }
+.rcard-img img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+.rcard:hover .rcard-img img { transform:scale(1.06); }
+.rcard-badges { position:absolute; top:10px; left:10px; display:flex; gap:6px; }
+.badge { border-radius:20px; padding:4px 10px; font-size:11px; font-weight:500; display:flex; align-items:center; gap:3px; }
+.badge-v { background:rgba(201,168,76,.88); color:#fff; }
+.badge-t { background:rgba(0,0,0,.52); color:#fff; backdrop-filter:blur(4px); }
+.rcard-body { padding:16px 18px 18px; }
+.rcard-author { display:flex; align-items:center; gap:8px; margin-bottom:9px; }
+.rcard-avatar { width:28px; height:28px; border-radius:50%; background:var(--terracotta); display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:600; flex-shrink:0; }
+.rcard-author-n { font-size:13px; font-weight:500; }
+.rcard-author-r { font-size:11px; color:var(--muted); }
+.rcard-title { font-family:var(--serif); font-size:19px; font-weight:600; margin-bottom:5px; line-height:1.2; }
+.rcard-desc { font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:12px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.rcard-footer { display:flex; align-items:center; justify-content:space-between; }
+.rcard-likes { display:flex; align-items:center; gap:5px; font-size:13px; color:var(--muted); }
+.rcard-likes svg { color:var(--terracotta); }
+.btn-cook { background:var(--terracotta); color:#fff; border:none; border-radius:20px; padding:6px 15px; font-size:13px; font-weight:500; cursor:pointer; font-family:var(--sans); transition:background .2s; }
+.btn-cook:hover { background:var(--terracotta-dark); }
 
-/* ── RECIPE GRID ── */
-.recipes-section { padding: 32px 80px 80px; }
-.recipes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 28px;
+/* DETAIL MODAL */
+.overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:300; overflow-y:auto; }
+.overlay.open { display:flex; justify-content:center; padding:40px 20px; }
+.modal { background:var(--bg); width:100%; max-width:740px; border-radius:28px; overflow:hidden; align-self:flex-start; animation:slideUp .3s ease; position:relative; }
+@keyframes slideUp { from{transform:translateY(28px);opacity:0} to{transform:none;opacity:1} }
+.modal-close-btn {
+  position:absolute; top:14px; right:14px; z-index:10;
+  background:rgba(255,255,255,.25); backdrop-filter:blur(8px);
+  border:none; color:#fff; width:38px; height:38px; border-radius:50%;
+  font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;
 }
-.recipe-card {
-  background: white; border-radius: 20px; overflow: hidden;
-  box-shadow: 0 2px 16px rgba(0,0,0,.06);
-  transition: transform .25s, box-shadow .25s;
-  cursor: pointer; text-decoration: none; color: inherit; display: block;
+.modal-hero-img { position:relative; height:320px; }
+.modal-hero-img img { width:100%; height:100%; object-fit:cover; }
+.modal-hero-ov { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.7),transparent 50%); }
+.modal-hero-txt { position:absolute; bottom:22px; left:26px; right:26px; color:#fff; }
+.modal-hero-txt h2 { font-family:var(--serif); font-size:34px; font-weight:600; line-height:1.1; margin-bottom:5px; }
+.modal-hero-txt .region { font-size:12px; text-transform:uppercase; letter-spacing:2px; opacity:.8; }
+.modal-body { padding:28px 28px 44px; }
+.modal-st { font-family:var(--serif); font-size:21px; margin:24px 0 14px; }
+.ing-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--border); cursor:pointer; }
+.ing-row:last-child { border-bottom:none; }
+.ing-row.ck .ing-name { text-decoration:line-through; opacity:.4; }
+.ing-chk { width:20px; height:20px; border-radius:50%; border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .2s; }
+.ing-chk.on { background:var(--terracotta); border-color:var(--terracotta); }
+.ing-name { flex:1; font-size:15px; }
+.ing-qty { font-size:13px; color:var(--muted); }
+.auth-box { background:#FDF8F0; border-left:3px solid var(--gold); border-radius:0 12px 12px 0; padding:14px 18px; margin:20px 0; }
+.auth-box-t { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); font-weight:600; margin-bottom:8px; }
+.auth-box ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
+.auth-box li { font-size:13px; color:#555; line-height:1.55; padding-left:12px; position:relative; }
+.auth-box li::before { content:'·'; position:absolute; left:0; color:var(--gold); font-size:16px; line-height:1; }
+.step-row { display:flex; gap:18px; margin-bottom:22px; }
+.step-n { font-family:var(--serif); font-size:48px; color:rgba(0,0,0,.07); line-height:1; min-width:52px; flex-shrink:0; }
+.step-txt { font-size:15px; line-height:1.65; color:#333; padding-top:4px; }
+.step-timer-badge { margin-top:6px; font-size:12px; color:var(--terracotta); display:flex; align-items:center; gap:4px; }
+.modal-cta { margin-top:28px; text-align:center; }
+.btn-start-cooking {
+  background:var(--terracotta); color:#fff; border:none; border-radius:30px;
+  padding:15px 36px; font-size:16px; font-weight:500; cursor:pointer; font-family:var(--sans);
+  box-shadow:0 4px 20px rgba(196,97,74,.4); transition:background .2s,transform .15s;
 }
-.recipe-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.12); }
-.recipe-card-img { position: relative; height: 220px; overflow: hidden; }
-.recipe-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-.recipe-card:hover .recipe-card-img img { transform: scale(1.06); }
-.recipe-card-badges { position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; }
-.badge {
-  border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 500;
-  display: flex; align-items: center; gap: 4px;
-}
-.badge-verified { background: rgba(201,168,76,.9); color: white; }
-.badge-time { background: rgba(0,0,0,.55); color: white; backdrop-filter: blur(4px); }
-.recipe-card-body { padding: 18px 20px 20px; }
-.recipe-card-author { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-.recipe-card-author img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-.recipe-card-author-name { font-size: 13px; font-weight: 500; }
-.recipe-card-author-region { font-size: 11px; color: var(--text-muted); }
-.recipe-card-title { font-family: var(--serif); font-size: 20px; font-weight: 600; margin-bottom: 6px; line-height: 1.2; }
-.recipe-card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.recipe-card-footer { display: flex; align-items: center; justify-content: space-between; }
-.recipe-card-likes { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text-muted); }
-.recipe-card-likes svg { color: var(--terracotta); }
-.cook-link {
-  background: var(--terracotta); color: white; border: none; border-radius: 20px;
-  padding: 7px 16px; font-size: 13px; font-weight: 500; cursor: pointer;
-  font-family: var(--sans); text-decoration: none; transition: background .2s;
-}
-.cook-link:hover { background: var(--terracotta-dark); }
+.btn-start-cooking:hover { background:var(--terracotta-dark); transform:scale(1.02); }
 
-/* ── RECIPE MODAL ── */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6);
-  z-index: 500; overflow-y: auto; animation: fadeIn .2s;
+/* COOKING FULLSCREEN */
+#cooking-screen {
+  display:none; position:fixed; inset:0; z-index:1000;
+  background:#111; color:#fff; flex-direction:column; font-family:var(--sans);
 }
-.modal-overlay.open { display: flex; justify-content: center; padding: 40px 20px; }
-@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
-.modal {
-  background: var(--bg); width: 100%; max-width: 760px; border-radius: 28px;
-  overflow: hidden; position: relative; animation: slideUp .3s ease;
-  align-self: flex-start;
-}
-@keyframes slideUp { from { transform: translateY(30px); opacity:0 } to { transform: none; opacity:1 } }
-.modal-close {
-  position: absolute; top: 16px; right: 16px; z-index: 10;
-  background: rgba(255,255,255,.25); backdrop-filter: blur(8px);
-  border: none; color: white; width: 40px; height: 40px; border-radius: 50%;
-  font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background .2s;
-}
-.modal-close:hover { background: rgba(255,255,255,.4); }
-.modal-hero { position: relative; height: 340px; }
-.modal-hero img { width: 100%; height: 100%; object-fit: cover; }
-.modal-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%); }
-.modal-hero-text { position: absolute; bottom: 24px; left: 28px; right: 28px; color: white; }
-.modal-hero-text h2 { font-family: var(--serif); font-size: 36px; font-weight: 600; line-height: 1.1; margin-bottom: 6px; }
-.modal-hero-text .region { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; opacity: .8; }
-.modal-body { padding: 32px 32px 48px; }
-.modal-section-title { font-family: var(--serif); font-size: 22px; margin-bottom: 16px; margin-top: 28px; }
-.ingredient-row {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 10px 0; border-bottom: 1px solid var(--border);
-  font-size: 15px; cursor: pointer; user-select: none;
-}
-.ingredient-row:last-child { border-bottom: none; }
-.ingredient-row.checked .ing-name { text-decoration: line-through; opacity: .4; }
-.ing-check { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--border); margin-right: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .2s; }
-.ing-check.on { background: var(--terracotta); border-color: var(--terracotta); }
-.ing-name { flex: 1; }
-.ing-qty { color: var(--text-muted); font-size: 13px; }
-.auth-box {
-  background: #FDF8F0; border-left: 3px solid var(--gold); border-radius: 0 12px 12px 0;
-  padding: 16px 20px; margin: 24px 0;
-}
-.auth-box-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gold); font-weight: 600; margin-bottom: 8px; }
-.auth-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-.auth-box li { font-size: 13px; color: #555; line-height: 1.5; padding-left: 14px; position: relative; }
-.auth-box li::before { content: '·'; position: absolute; left: 0; color: var(--gold); font-size: 18px; line-height: 1; }
-.step-row { display: flex; gap: 20px; margin-bottom: 24px; }
-.step-n { font-family: var(--serif); font-size: 52px; color: rgba(0,0,0,.07); line-height: 1; min-width: 56px; flex-shrink: 0; }
-.step-text { font-size: 15px; line-height: 1.65; padding-top: 6px; color: #333; }
-.modal-cta { margin-top: 36px; }
-.modal-cta button {
-  width: 100%; background: var(--terracotta); color: white; border: none;
-  border-radius: 16px; padding: 16px; font-size: 16px; font-weight: 500;
-  cursor: pointer; font-family: var(--sans); transition: background .2s;
-}
-.modal-cta button:hover { background: var(--terracotta-dark); }
+#cooking-screen.open { display:flex; }
+.ck-header { display:flex; justify-content:space-between; align-items:center; padding:18px 24px; border-bottom:1px solid rgba(255,255,255,.1); flex-shrink:0; }
+.ck-recipe-title { font-family:var(--serif); font-size:17px; }
+.ck-close-btn { background:none; border:none; color:#fff; font-size:24px; cursor:pointer; opacity:.7; transition:opacity .2s; padding:4px 8px; }
+.ck-close-btn:hover { opacity:1; }
+.ck-progress { display:flex; gap:4px; padding:14px 24px 0; flex-shrink:0; }
+.ck-dot { flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,.15); transition:background .3s; }
+.ck-dot.done { background:var(--terracotta); }
+.ck-step-label { padding:8px 24px 0; font-size:13px; color:rgba(255,255,255,.4); flex-shrink:0; }
+.ck-ing-strip { padding:10px 24px; display:flex; gap:8px; overflow-x:auto; flex-shrink:0; }
+.ck-ing-strip::-webkit-scrollbar { display:none; }
+.ck-ing-pill { background:rgba(255,255,255,.08); border-radius:20px; padding:5px 12px; font-size:12px; white-space:nowrap; color:rgba(255,255,255,.65); }
+.ck-main { flex:1; display:flex; flex-direction:column; justify-content:center; padding:16px 24px; overflow:hidden; }
+.ck-card { background:rgba(255,255,255,.06); border-radius:24px; padding:32px; max-width:700px; margin:0 auto; width:100%; }
+.ck-num { font-family:var(--serif); font-size:64px; color:rgba(255,255,255,.07); margin-bottom:8px; line-height:1; }
+.ck-text { font-size:clamp(18px,2.8vw,24px); font-weight:400; line-height:1.45; }
+/* timer */
+.ck-timer { margin-top:22px; }
+.timer-wrap { display:inline-flex; align-items:center; gap:12px; background:rgba(196,97,74,.15); border:1.5px solid rgba(196,97,74,.4); border-radius:16px; padding:12px 20px; }
+.timer-val { font-family:var(--serif); font-size:32px; font-weight:600; color:#fff; min-width:90px; }
+.timer-ctrl { background:var(--terracotta); color:#fff; border:none; border-radius:10px; width:38px; height:38px; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+.timer-ctrl:hover { background:var(--terracotta-dark); }
+.timer-reset { background:rgba(255,255,255,.15); }
+.timer-done-msg { color:var(--gold); font-size:13px; margin-top:8px; display:none; font-weight:500; }
+.timer-done-msg.show { display:block; }
+.ck-nav { display:flex; gap:12px; padding:16px 24px 24px; flex-shrink:0; }
+.ck-nav button { flex:1; padding:15px; border-radius:16px; border:none; font-size:15px; font-weight:500; cursor:pointer; font-family:var(--sans); transition:all .2s; }
+.ck-btn-prev { background:rgba(255,255,255,.1); color:#fff; }
+.ck-btn-next { background:var(--terracotta); color:#fff; }
+.ck-btn-next:hover { background:var(--terracotta-dark); }
+.ck-btn-finish { background:#4CAF50; color:#fff; }
 
-/* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border); padding: 40px 80px;
-  display: flex; justify-content: space-between; align-items: center;
+/* ADD RECIPE MODAL */
+#add-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:400; overflow-y:auto; }
+#add-overlay.open { display:flex; justify-content:center; padding:40px 20px; }
+.add-modal { background:#fff; width:100%; max-width:680px; border-radius:24px; padding:32px; align-self:flex-start; animation:slideUp .3s ease; position:relative; }
+.add-modal h2 { font-family:var(--serif); font-size:26px; margin-bottom:6px; }
+.add-modal > p { font-size:14px; color:var(--muted); margin-bottom:24px; }
+.form-row { margin-bottom:16px; }
+label { display:block; font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:5px; font-weight:500; }
+input[type=text], input[type=number], textarea, select {
+  width:100%; border:1.5px solid var(--border); border-radius:12px;
+  padding:11px 14px; font-size:14px; font-family:var(--sans); outline:none; background:#fff; transition:border .2s;
 }
-.footer-logo { font-family: var(--serif); font-size: 20px; font-weight: 600; }
-.footer-logo span { color: var(--terracotta); }
-footer p { font-size: 13px; color: var(--text-muted); }
+input:focus, textarea:focus, select:focus { border-color:var(--terracotta); }
+textarea { resize:vertical; }
+.form-grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.dyn-list { display:flex; flex-direction:column; gap:8px; margin-bottom:8px; }
+.dyn-row { display:flex; gap:8px; align-items:center; }
+.dyn-row input { flex:1; }
+.dyn-row .rm-btn { background:none; border:1.5px solid var(--border); border-radius:8px; width:34px; height:34px; cursor:pointer; font-size:15px; color:var(--muted); flex-shrink:0; transition:all .2s; }
+.dyn-row .rm-btn:hover { border-color:#e55; color:#e55; }
+.btn-add-row { background:none; border:1.5px dashed var(--border); border-radius:10px; width:100%; padding:8px; font-size:13px; color:var(--muted); cursor:pointer; font-family:var(--sans); transition:all .2s; margin-bottom:16px; }
+.btn-add-row:hover { border-color:var(--terracotta); color:var(--terracotta); }
+.step-dyn-row { display:flex; gap:8px; align-items:flex-start; }
+.step-num-lbl { min-width:26px; height:26px; background:var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; margin-top:10px; flex-shrink:0; color:var(--text); }
+.step-inner { flex:1; display:flex; flex-direction:column; gap:5px; }
+.step-timer-row { display:flex; align-items:center; gap:8px; }
+.step-timer-row span { font-size:12px; color:var(--muted); white-space:nowrap; }
+.step-timer-row input[type=number] { width:120px; flex:none; }
+.step-rm { background:none; border:none; cursor:pointer; color:var(--muted); font-size:15px; padding:4px 6px; margin-top:8px; }
+.form-actions { display:flex; gap:10px; margin-top:24px; }
+.btn-save { flex:1; background:var(--terracotta); color:#fff; border:none; border-radius:14px; padding:14px; font-size:15px; font-weight:500; cursor:pointer; font-family:var(--sans); transition:background .2s; }
+.btn-save:hover { background:var(--terracotta-dark); }
+.btn-cancel { background:none; border:1.5px solid var(--border); border-radius:14px; padding:14px 20px; font-size:15px; cursor:pointer; font-family:var(--sans); color:var(--muted); transition:all .2s; }
+.btn-cancel:hover { border-color:var(--muted); color:var(--text); }
 
-/* ── NO RESULTS ── */
-.no-results { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted); }
-.no-results p { font-size: 16px; margin-top: 8px; }
+/* AI REVIEW FLOW */
+.add-steps-bar { display:flex; align-items:center; margin-bottom:24px; }
+.add-step-item { display:flex; align-items:center; gap:6px; font-size:13px; color:var(--muted); font-weight:500; }
+.add-step-item.active { color:var(--terracotta); }
+.add-step-item.done { color:#4CAF50; }
+.add-step-num { width:22px; height:22px; border-radius:50%; background:var(--border); color:var(--muted); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .3s; }
+.add-step-item.active .add-step-num { background:var(--terracotta); color:#fff; }
+.add-step-item.done .add-step-num { background:#4CAF50; color:#fff; }
+.add-step-sep { flex:1; height:1px; background:var(--border); margin:0 10px; }
+.ai-spinner { width:40px; height:40px; border:3px solid var(--border); border-top-color:var(--terracotta); border-radius:50%; animation:spin .7s linear infinite; margin:0 auto; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.review-field { margin-bottom:16px; }
+.review-field-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:5px; }
+.review-field-header label { margin:0; }
+.review-badges { display:flex; gap:5px; align-items:center; }
+.badge-ai { display:inline-flex; align-items:center; gap:4px; font-size:11px; border-radius:12px; padding:3px 9px; font-weight:500; cursor:pointer; border:none; font-family:var(--sans); transition:all .2s; }
+.badge-ai-changed { background:rgba(196,97,74,.1); color:var(--terracotta); }
+.badge-ai-added { background:rgba(76,175,80,.1); color:#2e7d32; }
+.badge-ai-accept { background:var(--terracotta); color:#fff; }
+.badge-ai-accept:hover { background:var(--terracotta-dark); }
+.badge-ai-reject { background:#eee; color:#555; }
+.badge-ai-reject:hover { background:#ddd; }
+.review-input-wrap { position:relative; }
+.review-suggestion {
+  background:#FFF8F0; border:1.5px solid rgba(196,97,74,.25); border-radius:10px;
+  padding:10px 12px; margin-top:6px; font-size:13px; color:#555; line-height:1.5;
+}
+.review-suggestion .sug-label { font-size:11px; font-weight:600; color:var(--terracotta); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:flex; align-items:center; gap:4px; }
+.review-suggestion .sug-text { color:#333; margin-bottom:8px; }
+.review-suggestion .sug-actions { display:flex; gap:6px; }
+.sug-accept { background:var(--terracotta); color:#fff; border:none; border-radius:8px; padding:5px 12px; font-size:12px; font-weight:500; cursor:pointer; font-family:var(--sans); }
+.sug-reject { background:#eee; color:#555; border:none; border-radius:8px; padding:5px 12px; font-size:12px; cursor:pointer; font-family:var(--sans); }
+.ai-changes-summary { background:#F0FFF4; border:1.5px solid rgba(76,175,80,.3); border-radius:12px; padding:14px 16px; margin-top:16px; }
+.ai-changes-summary .sum-title { font-size:12px; font-weight:600; color:#2e7d32; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; }
+.ai-changes-summary li { font-size:13px; color:#444; margin-bottom:4px; margin-left:14px; }
+.final-preview-card { background:#fff; border-radius:16px; padding:20px; border:1.5px solid var(--border); }
+.final-preview-card h3 { font-family:var(--serif); font-size:22px; margin-bottom:4px; }
+.final-preview-tag { display:inline-flex; align-items:center; gap:4px; background:rgba(196,97,74,.1); color:var(--terracotta); border-radius:16px; padding:3px 10px; font-size:12px; margin-right:5px; margin-bottom:8px; }
+.final-ing-list { display:flex; flex-direction:column; gap:4px; margin-top:8px; }
+.final-ing-item { font-size:13px; color:#555; display:flex; gap:8px; }
+.final-ing-item::before { content:'·'; color:var(--terracotta); }
+.final-step-item { display:flex; gap:12px; margin-bottom:10px; }
+.final-step-n { font-family:var(--serif); font-size:30px; color:rgba(0,0,0,.08); line-height:1; min-width:36px; }
+.final-step-txt { font-size:13px; color:#444; line-height:1.55; padding-top:2px; }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding: 48px 24px; gap: 40px; }
-  .hero-visual { display: none; }
-  .filters-section, .recipes-section { padding-left: 24px; padding-right: 24px; }
-  footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
-  header { padding: 0 20px; }
-  .search-wrap input { width: 160px; }
+.toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-80px); background:#1A1A1A; color:#fff; padding:10px 22px; border-radius:20px; font-size:13px; z-index:9999; transition:transform .3s; pointer-events:none; }
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+footer { border-top:1px solid var(--border); padding:36px 80px; display:flex; justify-content:space-between; align-items:center; }
+.foot-logo { font-family:var(--serif); font-size:20px; font-weight:600; }
+.foot-logo span { color:var(--terracotta); }
+footer p { font-size:13px; color:var(--muted); }
+
+@media(max-width:900px) {
+  .hero { grid-template-columns:1fr; padding:48px 24px; }
+  .hero-imgs { display:none; }
+  .section { padding:32px 20px; }
+  footer { flex-direction:column; gap:10px; text-align:center; padding:28px 20px; }
+  header { padding:0 16px; }
+  .search-wrap input { width:120px; }
+  .form-grid2 { grid-template-columns:1fr; }
 }
-@media (max-width: 600px) {
-  .recipes-grid { grid-template-columns: 1fr; }
+@media(max-width:560px) { .recipes-grid { grid-template-columns:1fr; } }
+
+/* ── COOKING CHAT ── */
+.ck-chat-btn {
+  position:fixed; bottom:100px; right:20px; z-index:1001;
+  background:var(--terracotta); color:#fff; border:none; border-radius:50%;
+  width:52px; height:52px; font-size:22px; cursor:pointer;
+  box-shadow:0 4px 20px rgba(196,97,74,.5); transition:transform .2s;
+  display:none; align-items:center; justify-content:center;
 }
+#cooking-screen.open ~ .ck-chat-btn,
+.ck-chat-btn.visible { display:flex; }
+.ck-chat-btn:hover { transform:scale(1.1); }
+.ck-chat-panel {
+  position:fixed; bottom:0; right:0; z-index:1002;
+  width:100%; max-width:400px; height:62vh;
+  background:#1c1c1c; border-radius:20px 20px 0 0;
+  display:flex; flex-direction:column;
+  transform:translateY(100%); transition:transform .3s ease;
+  box-shadow:0 -8px 40px rgba(0,0,0,.5);
+}
+.ck-chat-panel.open { transform:translateY(0); }
+.ck-chat-header {
+  padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.1);
+  display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+}
+.ck-chat-header-left { display:flex; align-items:center; gap:8px; }
+.ck-chat-header-icon {
+  width:30px; height:30px; border-radius:50%; background:var(--terracotta);
+  display:flex; align-items:center; justify-content:center; font-size:14px;
+}
+.ck-chat-header-title { color:#fff; font-size:14px; font-weight:500; }
+.ck-chat-header-sub { color:rgba(255,255,255,.4); font-size:11px; }
+.ck-chat-close { background:none; border:none; color:rgba(255,255,255,.5); font-size:20px; cursor:pointer; padding:4px 8px; }
+.ck-chat-msgs {
+  flex:1; overflow-y:auto; padding:14px 16px; display:flex;
+  flex-direction:column; gap:10px;
+}
+.ck-chat-msgs::-webkit-scrollbar { width:4px; }
+.ck-chat-msgs::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:2px; }
+.ck-msg { max-width:85%; padding:9px 13px; border-radius:14px; font-size:13px; line-height:1.5; }
+.ck-msg.user { background:var(--terracotta); color:#fff; align-self:flex-end; border-radius:14px 14px 4px 14px; }
+.ck-msg.ai { background:rgba(255,255,255,.08); color:rgba(255,255,255,.9); align-self:flex-start; border-radius:14px 14px 14px 4px; }
+.ck-msg.typing { background:rgba(255,255,255,.05); color:rgba(255,255,255,.4); align-self:flex-start; font-style:italic; }
+.ck-chat-quick { display:flex; gap:6px; padding:0 16px 8px; overflow-x:auto; flex-shrink:0; }
+.ck-chat-quick::-webkit-scrollbar { display:none; }
+.ck-quick-btn {
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.7); border-radius:16px; padding:5px 12px;
+  font-size:12px; cursor:pointer; white-space:nowrap; font-family:var(--sans);
+  transition:all .2s; flex-shrink:0;
+}
+.ck-quick-btn:hover { background:rgba(196,97,74,.3); border-color:var(--terracotta); color:#fff; }
+.ck-chat-input-row {
+  display:flex; gap:8px; padding:10px 14px 16px; flex-shrink:0;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.ck-chat-input {
+  flex:1; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+  border-radius:20px; padding:9px 14px; font-size:13px; color:#fff;
+  font-family:var(--sans); outline:none; transition:border .2s;
+}
+.ck-chat-input:focus { border-color:var(--terracotta); }
+.ck-chat-input::placeholder { color:rgba(255,255,255,.3); }
+.ck-chat-send {
+  background:var(--terracotta); color:#fff; border:none; border-radius:50%;
+  width:38px; height:38px; cursor:pointer; font-size:16px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:background .2s;
+}
+.ck-chat-send:hover { background:var(--terracotta-dark); }
 </style>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, addDoc, orderBy, query, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyDP7VbOna5X6Z4L7npOOjk66mGZ2UfRDU8",
+    authDomain: "autentico-63262.firebaseapp.com",
+    projectId: "autentico-63262",
+    storageBucket: "autentico-63262.firebasestorage.app",
+    messagingSenderId: "1033915497111",
+    appId: "1:1033915497111:web:860b1fa19cf7ee3a5ac7d2"
+  };
+  const app = initializeApp(firebaseConfig);
+  const db  = getFirestore(app);
+  window._db = db;
+  window._fsCollection = collection;
+  window._fsDocs       = getDocs;
+  window._fsAddDoc     = addDoc;
+  window._fsQuery      = query;
+  window._fsOrderBy    = orderBy;
+  window._fsTimestamp  = serverTimestamp;
+  document.dispatchEvent(new Event('firebase-ready'));
+<\/script>
 </head>
 <body>
 
-<!-- HEADER -->
+<div class="toast" id="toast"></div>
+
 <header>
   <a class="logo" href="#">Autenti<span>co</span></a>
-  <div class="search-wrap">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input type="text" id="search-input" placeholder="Cerca ricetta o regione…" oninput="filterRecipes()" />
+  <div class="header-right">
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search-input" placeholder="Cerca ricetta…" oninput="renderGrid()" />
+    </div>
+    <button class="btn-add-hdr" onclick="openAdd()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Aggiungi ricetta
+    </button>
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-text">
+  <div>
     <div class="hero-tag">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
       Ricette Verificate
     </div>
     <h1>Sapori <em>autentici</em><br>da tutto il mondo</h1>
-    <p>Ricette tradizionali condivise da chi le conosce davvero. Niente scorciatoie, niente compromessi — solo la versione originale.</p>
-    <div class="hero-actions">
+    <p>Ricette tradizionali condivise da chi le conosce davvero. Niente scorciatoie, niente compromessi.</p>
+    <div class="hero-btns">
       <a href="#ricette" class="btn-primary">Scopri le ricette</a>
-      <a href="#ricette" class="btn-secondary">
-        Come funziona
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <a href="#" onclick="openAdd();return false;" class="btn-ghost">+ Aggiungi la tua <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="hero-stats">
-      <div><div class="stat-num">5</div><div class="stat-label">Ricette</div></div>
-      <div><div class="stat-num">4</div><div class="stat-label">Paesi</div></div>
-      <div><div class="stat-num">100%</div><div class="stat-label">Autentiche</div></div>
+      <div><div class="stat-n" id="stat-count">5</div><div class="stat-l">Ricette</div></div>
+      <div><div class="stat-n" id="stat-countries">4</div><div class="stat-l">Paesi</div></div>
+      <div><div class="stat-n">100%</div><div class="stat-l">Autentiche</div></div>
     </div>
   </div>
-  <div class="hero-visual">
-    <div class="hero-grid">
-      <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=800&auto=format&fit=crop" alt="Carbonara" />
-        <div class="hero-img-overlay"><span>Carbonara</span><div class="hero-img-region">Roma, Italia</div></div>
-      </div>
-      <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?q=80&w=600&auto=format&fit=crop" alt="Takoyaki" />
-        <div class="hero-img-overlay"><span>Takoyaki</span><div class="hero-img-region">Osaka, Giappone</div></div>
-      </div>
-      <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1620088191205-02058b8686d1?q=80&w=600&auto=format&fit=crop" alt="Pan con Tomate" />
-        <div class="hero-img-overlay"><span>Pan con Tomate</span><div class="hero-img-region">Barcelona, Spagna</div></div>
-      </div>
-    </div>
+  <div class="hero-imgs">
+    <div class="h-img"><img src="https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=800&auto=format&fit=crop" alt="Carbonara" /><div class="h-img-ov"><strong>Carbonara</strong><small>Roma, Italia</small></div></div>
+    <div class="h-img"><img src="https://images.unsplash.com/photo-1574484284002-952d92456975?q=80&w=600&auto=format&fit=crop" alt="Takoyaki" /><div class="h-img-ov"><strong>Takoyaki</strong><small>Osaka, Giappone</small></div></div>
+    <div class="h-img"><img src="https://images.unsplash.com/photo-1620088191205-02058b8686d1?q=80&w=600&auto=format&fit=crop" alt="Pan con Tomate" /><div class="h-img-ov"><strong>Pan con Tomate</strong><small>Barcelona, Spagna</small></div></div>
   </div>
 </section>
 
-<!-- FILTERS -->
-<section class="filters-section" id="ricette">
-  <h2>Tutte le ricette</h2>
-  <div class="filter-bar" id="filter-bar">
-    <button class="filter-btn active" onclick="setFilter('Tutto', this)">Tutto</button>
-    <button class="filter-btn" onclick="setFilter('Italia', this)">🇮🇹 Italia</button>
-    <button class="filter-btn" onclick="setFilter('Giappone', this)">🇯🇵 Giappone</button>
-    <button class="filter-btn" onclick="setFilter('Spagna', this)">🇪🇸 Spagna</button>
-    <button class="filter-btn" onclick="setFilter('Verificate', this)">⭐ Verificate</button>
+<section class="section" id="ricette">
+  <h2 class="section-title">Tutte le ricette</h2>
+  <div class="filter-bar">
+    <button class="f-btn active" data-filter="Tutto" onclick="setFilter(this)">Tutto</button>
+    <button class="f-btn" data-filter="Italia" onclick="setFilter(this)">🇮🇹 Italia</button>
+    <button class="f-btn" data-filter="Giappone" onclick="setFilter(this)">🇯🇵 Giappone</button>
+    <button class="f-btn" data-filter="Spagna" onclick="setFilter(this)">🇪🇸 Spagna</button>
+    <button class="f-btn" data-filter="Verificata" onclick="setFilter(this)">⭐ Verificate</button>
   </div>
-</section>
-
-<!-- RECIPE GRID -->
-<section class="recipes-section">
   <div class="recipes-grid" id="recipes-grid"></div>
 </section>
 
-<!-- RECIPE MODAL -->
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
-  <div class="modal" id="modal-content"></div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Autenti<span>co</span></div>
-  <p>Ricette tradizionali da tutto il mondo · Progetto scolastico</p>
+  <div class="foot-logo">Autenti<span>co</span></div>
+  <p>Ricette tradizionali da tutto il mondo</p>
 </footer>
 
-<script>
-const users = {
-  u1: { name:"Marco Romano", region:"Roma 🇮🇹", avatar:"https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200&auto=format&fit=crop", verified:true },
-  u2: { name:"Yuki Tanaka", region:"Osaka 🇯🇵", avatar:"https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop", verified:true },
-  u3: { name:"Sofia Garcia", region:"Barcelona 🇪🇸", avatar:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop", verified:false },
-  u4: { name:"Elena Esposito", region:"Napoli 🇮🇹", avatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop", verified:true }
-};
+<!-- DETAIL MODAL -->
+<div class="overlay" id="detail-overlay" onclick="maybeCloseDetail(event)">
+  <div class="modal" id="detail-modal"></div>
+</div>
 
-const recipes = [
+<!-- ADD MODAL -->
+<div id="add-overlay" onclick="maybeCloseAdd(event)">
+  <div class="add-modal" id="add-modal-inner">
+
+    <!-- STEP INDICATOR -->
+    <div class="add-steps-bar" id="add-steps-bar">
+      <div class="add-step-item active" id="asi-1"><span class="add-step-num">1</span>Scrivi</div>
+      <div class="add-step-sep"></div>
+      <div class="add-step-item" id="asi-2"><span class="add-step-num">2</span>Revisione IA</div>
+      <div class="add-step-sep"></div>
+      <div class="add-step-item" id="asi-3"><span class="add-step-num">3</span>Pubblica</div>
+    </div>
+
+    <button class="modal-close-btn" style="position:absolute;top:16px;right:16px;background:#eee;color:#333;width:34px;height:34px;border:none;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;z-index:2;" onclick="closeAdd()">✕</button>
+
+    <!-- FASE 1: scrivi liberamente -->
+    <div id="add-phase-1">
+      <h2>Aggiungi una ricetta</h2>
+      <p style="margin-bottom:20px">Scrivi la ricetta come vuoi — anche in modo informale. L'IA la strutturerà per te.</p>
+      <div class="form-row">
+        <label>Il tuo nome</label>
+        <input type="text" id="f-author" placeholder="Es: Marco R." />
+      </div>
+      <div class="form-row">
+        <label>Scrivi la tua ricetta *</label>
+        <textarea id="f-raw" placeholder="Scrivi tutto quello che sai sulla ricetta, anche in modo disordinato. Per esempio:&#10;&#10;Pasta al pesto genovese. Ci vogliono le trofie (o le trenette), il basilico fresco, parmigiano, pinoli, aglio e olio. Si frulla il basilico con l'aglio, i pinoli e l'olio fino a crema, si aggiunge il parmigiano. Si cuoce la pasta e si condisce col pesto. A volte si aggiungono le patate e i fagiolini durante la cottura.&#10;&#10;Non importa se mancano le quantità o i tempi esatti — l'IA le suggerirà." style="min-height:200px"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn-cancel" onclick="closeAdd()">Annulla</button>
+        <button class="btn-save" onclick="runAI()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          Analizza con IA →
+        </button>
+      </div>
+    </div>
+
+    <!-- FASE 2: revisione IA -->
+    <div id="add-phase-2" style="display:none">
+      <h2>Revisione IA</h2>
+      <p id="ai-review-subtitle" style="margin-bottom:16px">L'IA ha strutturato la tua ricetta. Controlla ogni campo — puoi accettare o modificare.</p>
+
+      <!-- loading state -->
+      <div id="ai-loading-block" style="text-align:center;padding:48px 0">
+        <div class="ai-spinner"></div>
+        <div id="ai-loading-msg" style="margin-top:16px;font-size:14px;color:var(--muted)">Sto leggendo la ricetta…</div>
+      </div>
+
+      <!-- review fields (shown after loading) -->
+      <div id="ai-review-fields" style="display:none">
+
+        <!-- title -->
+        <div class="review-field" id="rf-title">
+          <div class="review-field-header">
+            <label>Nome ricetta</label>
+            <div class="review-badges" id="rb-title"></div>
+          </div>
+          <div class="review-input-wrap">
+            <input type="text" id="fr-title" />
+            <div class="review-suggestion" id="rs-title" style="display:none"></div>
+          </div>
+        </div>
+
+        <!-- region + country -->
+        <div class="form-grid2">
+          <div class="review-field" id="rf-region">
+            <div class="review-field-header"><label>Regione/Città</label><div class="review-badges" id="rb-region"></div></div>
+            <div class="review-input-wrap">
+              <input type="text" id="fr-region" />
+              <div class="review-suggestion" id="rs-region" style="display:none"></div>
+            </div>
+          </div>
+          <div class="review-field" id="rf-country">
+            <div class="review-field-header"><label>Paese</label><div class="review-badges" id="rb-country"></div></div>
+            <div class="review-input-wrap">
+              <select id="fr-country"><option value="">Seleziona...</option><option>Italia</option><option>Giappone</option><option>Spagna</option><option>Francia</option><option>Messico</option><option>India</option><option>Grecia</option><option>Marocco</option><option>Altro</option></select>
+              <div class="review-suggestion" id="rs-country" style="display:none"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- time + img -->
+        <div class="form-grid2">
+          <div class="review-field" id="rf-time">
+            <div class="review-field-header"><label>Tempo (min)</label><div class="review-badges" id="rb-time"></div></div>
+            <div class="review-input-wrap">
+              <input type="number" id="fr-time" min="1" />
+              <div class="review-suggestion" id="rs-time" style="display:none"></div>
+            </div>
+          </div>
+          <div class="review-field">
+            <label>URL immagine (opzionale)</label>
+            <input type="text" id="fr-img" placeholder="https://..." />
+          </div>
+        </div>
+
+        <!-- description -->
+        <div class="review-field" id="rf-desc">
+          <div class="review-field-header"><label>Descrizione</label><div class="review-badges" id="rb-desc"></div></div>
+          <div class="review-input-wrap">
+            <textarea id="fr-desc" style="min-height:60px"></textarea>
+            <div class="review-suggestion" id="rs-desc" style="display:none"></div>
+          </div>
+        </div>
+
+        <!-- ingredients -->
+        <div class="review-field" id="rf-ings">
+          <div class="review-field-header"><label>Ingredienti</label><div class="review-badges" id="rb-ings"></div></div>
+          <div class="review-suggestion" id="rs-ings" style="display:none;margin-bottom:10px"></div>
+          <div class="dyn-list" id="ing-dyn-list"></div>
+          <button class="btn-add-row" onclick="addIngRow()">+ Aggiungi ingrediente</button>
+        </div>
+
+        <!-- steps -->
+        <div class="review-field" id="rf-steps">
+          <div class="review-field-header"><label>Passaggi</label><div class="review-badges" id="rb-steps"></div></div>
+          <div class="review-suggestion" id="rs-steps" style="display:none;margin-bottom:10px"></div>
+          <div class="dyn-list" id="step-dyn-list"></div>
+          <button class="btn-add-row" onclick="addStepRow()">+ Aggiungi passo</button>
+        </div>
+
+        <!-- notes -->
+        <div class="review-field" id="rf-notes">
+          <div class="review-field-header"><label>Note di autenticità</label><div class="review-badges" id="rb-notes"></div></div>
+          <div class="review-suggestion" id="rs-notes" style="display:none;margin-bottom:10px"></div>
+          <textarea id="fr-notes" placeholder="Una nota per riga…" style="min-height:70px"></textarea>
+        </div>
+
+        <div class="form-row" style="display:flex;align-items:center;gap:8px;margin-top:4px">
+          <input type="checkbox" id="fr-verified" style="width:auto" />
+          <label style="margin:0;font-size:14px;text-transform:none;letter-spacing:0">Ricetta verificata / autentica</label>
+        </div>
+
+        <!-- ai changes summary -->
+        <div id="ai-changes-summary" style="display:none"></div>
+
+        <div class="form-actions" style="margin-top:20px">
+          <button class="btn-cancel" onclick="backToPhase1()">← Riscrivi</button>
+          <button class="btn-save" onclick="goToPhase3()">Continua → Pubblica</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 3: conferma finale -->
+    <div id="add-phase-3" style="display:none">
+      <h2>Pronta per la pubblicazione!</h2>
+      <p style="margin-bottom:20px;color:var(--muted)">La tua ricetta è pronta. Dai un ultimo sguardo prima di pubblicarla.</p>
+      <div id="final-preview"></div>
+      <div class="form-actions" style="margin-top:20px">
+        <button class="btn-cancel" onclick="backToPhase2()">← Modifica ancora</button>
+        <button class="btn-save" onclick="saveRecipe()">🚀 Pubblica ricetta</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COOKING FULLSCREEN -->
+<div id="cooking-screen">
+  <div class="ck-header">
+    <div class="ck-recipe-title" id="ck-title"></div>
+    <button class="ck-close-btn" onclick="closeCooking()">✕</button>
+  </div>
+  <div class="ck-progress" id="ck-progress"></div>
+  <div class="ck-step-label" id="ck-step-label"></div>
+  <div class="ck-ing-strip" id="ck-ing-strip"></div>
+  <div class="ck-main">
+    <div class="ck-card">
+      <div class="ck-num" id="ck-num"></div>
+      <div class="ck-text" id="ck-text"></div>
+      <div class="ck-timer" id="ck-timer"></div>
+    </div>
+  </div>
+  <div class="ck-nav" id="ck-nav"></div>
+</div>
+
+<script>
+const DEFAULT_RECIPES = [
   {
-    id:"r1", title:"Authentic Carbonara", description:"The real Roman way. No cream, no garlic, just 4 ingredients and a lot of patience.",
+    id:"r1", title:"Authentic Carbonara",
+    description:"The real Roman way — no cream, no garlic. Just 4 ingredients and pure technique.",
     region:"Roma, Italia", country:"Italia",
     cover:"https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=800&auto=format&fit=crop",
-    verified:true, author:"u1", likes:1245, time:20,
+    verified:true, author:"Marco Romano", likes:1245, time:20,
     ingredients:[{name:"Spaghetti",qty:"400 g"},{name:"Guanciale",qty:"150 g"},{name:"Pecorino Romano",qty:"50 g"},{name:"Tuorli d'uovo",qty:"4"},{name:"Pepe nero",qty:"q.b."}],
-    steps:["Taglia il guanciale a strisce spesse e mettilo in una padella fredda.","Cuoci a fuoco medio finché diventa croccante, poi metti da parte.","In una ciotola, sbatti i 4 tuorli con il Pecorino grattugiato e abbondante pepe nero fino a ottenere una pasta densa.","Porta a ebollizione acqua salata e cuoci gli spaghetti al dente (circa 8 min).","Salva una tazza di acqua di cottura prima di scolare la pasta.","Scola la pasta e mescola nel guanciale (fuori dal fuoco).","Aggiungi la crema di uova e mescola velocemente aggiungendo acqua di cottura per una salsa cremosa.","Servi subito con altro Pecorino e pepe."],
-    notes:["Mai usare la panna. La cremosità viene dall'emulsione di uova, formaggio e acqua amidacea.","Il guanciale è essenziale. La pancetta è un sostituto, ma la pancetta affumicata cambia troppo il sapore.","Il Pecorino Romano dà il sapore pungente e sapido tipico della ricetta romana."]
+    steps:[
+      {text:"Taglia il guanciale a strisce spesse e mettilo in una padella fredda.",timer:null},
+      {text:"Cuoci a fuoco medio finché diventa croccante e dorato. Tieni il grasso — serve per la salsa.",timer:300},
+      {text:"In una ciotola sbatti 4 tuorli con il Pecorino grattugiato e abbondante pepe nero fino a una pasta densa.",timer:null},
+      {text:"Porta a ebollizione acqua salata e cuoci gli spaghetti. Segui il tempo sulla confezione.",timer:480},
+      {text:"Prima di scolare, salva una tazza abbondante di acqua di cottura amidacea.",timer:null},
+      {text:"Scola la pasta e versala nella padella del guanciale — fuori dal fuoco!",timer:null},
+      {text:"Aggiungi la crema di uova e mescola velocemente. Aggiungi acqua di cottura poco a poco fino a salsa cremosa e lucida.",timer:null},
+      {text:"Impiatta subito con altro Pecorino e una generosa macinata di pepe nero.",timer:null}
+    ],
+    notes:["Mai usare la panna: la cremosità viene dall'emulsione di uova, formaggio e acqua amidacea.","Il guanciale è essenziale — la pancetta affumicata cambia troppo il sapore.","Spegni sempre il fuoco prima di aggiungere le uova o si strapazzano."]
   },
   {
-    id:"r2", title:"Cacio e Pepe", description:"La magia di soli tre ingredienti: formaggio, pepe e acqua amidacea. Semplicità romana al massimo.",
+    id:"r2", title:"Cacio e Pepe",
+    description:"La magia di soli tre ingredienti: formaggio, pepe e acqua amidacea. Semplicità romana.",
     region:"Roma, Italia", country:"Italia",
     cover:"https://images.unsplash.com/photo-1643237146914-2794121a8d03?q=80&w=800&auto=format&fit=crop",
-    verified:true, author:"u1", likes:980, time:15,
+    verified:true, author:"Marco Romano", likes:980, time:15,
     ingredients:[{name:"Tonnarelli o Spaghetti",qty:"400 g"},{name:"Pecorino Romano",qty:"200 g"},{name:"Pepe nero in grani",qty:"1 cucchiaio"}],
-    steps:["Tosta i grani di pepe pestati grossolanamente in una padella asciutta a fuoco medio.","Porta a ebollizione poca acqua in una padella larga (meno del solito, per più amido).","Aggiungi la pasta e cuocila nella padella risottando: aggiungi acqua calda poco a poco.","Grattugia finemente il Pecorino e mescolalo con acqua tiepida fino a formare una pasta cremosa.","Quando la pasta è al dente, togli dal fuoco completamente.","Aggiungi la pasta di formaggio e mescola vigorosamente fino a formare una crema lucida.","Impiatta e aggiungi altro pepe fresco macinato."],
-    notes:["La temperatura è cruciale: il formaggio non deve scaldarsi troppo o si raggruma.","Cuocere la pasta risotto-style nella padella rilascia più amido, essenziale per la salsa.","Non aggiungere sale: il Pecorino è già molto sapido."]
+    steps:[
+      {text:"Pesta grossolanamente i grani di pepe. Tostali in una padella larga asciutta a fuoco medio finché profumano.",timer:120},
+      {text:"Porta a ebollizione poca acqua in una pentola — meno del normale per avere più amido.",timer:null},
+      {text:"Cuoci la pasta versando acqua calda poco a poco come un risotto.",timer:null},
+      {text:"Grattugia finemente il Pecorino e mescolalo con acqua tiepida fino a formare una pasta cremosa.",timer:null},
+      {text:"Quando la pasta è quasi al dente, trasferiscila nella padella del pepe con poca acqua di cottura.",timer:null},
+      {text:"Togli completamente dal fuoco. Aggiungi la pasta di Pecorino e mescola vigorosamente.",timer:null},
+      {text:"Aggiungi acqua di cottura se necessario fino a crema lucida. Impiatta con altro pepe.",timer:null}
+    ],
+    notes:["La temperatura è cruciale: il formaggio non deve scaldarsi troppo o si raggruma.","Cuocere la pasta risotto-style rilascia più amido, essenziale per la salsa.","Non aggiungere sale: il Pecorino è già molto sapido."]
   },
   {
-    id:"r3", title:"Authentic Takoyaki", description:"Croccante fuori, morbido e quasi liquido dentro. Lo street food dell'anima di Osaka.",
+    id:"r3", title:"Authentic Takoyaki",
+    description:"Croccante fuori, morbido e quasi liquido dentro. Lo street food dell'anima di Osaka.",
     region:"Osaka, Giappone", country:"Giappone",
     cover:"https://images.unsplash.com/photo-1574484284002-952d92456975?q=80&w=800&auto=format&fit=crop",
-    verified:true, author:"u2", likes:850, time:40,
-    ingredients:[{name:"Farina per takoyaki",qty:"200 g"},{name:"Uova",qty:"2"},{name:"Brodo dashi",qty:"600 ml"},{name:"Polpo bollito",qty:"150 g"},{name:"Tenkasu (tempura scraps)",qty:"30 g"},{name:"Cipollotti",qty:"2 steli"}],
-    steps:["Sbatti le uova con il brodo dashi freddo in una ciotola capiente.","Aggiungi gradualmente la farina e mescola fino a ottenere una pastella molto liquida.","Taglia il polpo a pezzi e trita finemente i cipollotti.","Scalda la piastra per takoyaki a fuoco alto e oliala generosamente.","Versa la pastella riempiendo e leggermente traboccando ogni buco.","Metti un pezzo di polpo in ogni buco e cospargi di tenkasu e cipollotti.","Dopo 2 minuti, usa uno stecchino per girare ogni pallina di 90 gradi.","Continua a girare fino a formare sfere perfette e dorate.","Servi con salsa takoyaki, maionese giapponese e fiocchi di bonito."],
-    notes:["La pastella deve essere quasi watery per ottenere il centro morbido tipico.","Una piastra in ghisa dà il migliore esterno croccante rispetto a quelle antiaderenti.","I fiocchi di bonito sul piatto caldo si muovono da soli: è normale ed è il segno di freschezza!"]
+    verified:true, author:"Yuki Tanaka", likes:850, time:40,
+    ingredients:[{name:"Farina per takoyaki",qty:"200 g"},{name:"Uova",qty:"2"},{name:"Brodo dashi",qty:"600 ml"},{name:"Polpo bollito",qty:"150 g"},{name:"Tenkasu",qty:"30 g"},{name:"Cipollotti",qty:"2 steli"}],
+    steps:[
+      {text:"Sbatti le uova con il brodo dashi freddo in una ciotola grande.",timer:null},
+      {text:"Aggiungi gradualmente la farina mescolando — la pastella deve essere molto liquida.",timer:null},
+      {text:"Taglia il polpo a pezzi e trita finemente i cipollotti.",timer:null},
+      {text:"Scalda la piastra per takoyaki a fuoco alto. Oliala generosamente in ogni buco.",timer:null},
+      {text:"Versa la pastella riempiendo e leggermente traboccando ogni buco.",timer:null},
+      {text:"Metti un pezzo di polpo in ogni buco. Cospargi tenkasu e cipollotti su tutto.",timer:null},
+      {text:"Aspetta 2 minuti, poi usa uno stecchino per girare ogni pallina di 90 gradi.",timer:120},
+      {text:"Continua a girare le palline finché sono sfere dorate e croccanti.",timer:180},
+      {text:"Servi con salsa takoyaki, maionese giapponese e fiocchi di bonito.",timer:null}
+    ],
+    notes:["La pastella deve essere quasi watery per ottenere il centro morbido tipico.","Una piastra in ghisa dà il migliore esterno croccante.","I fiocchi di bonito si muovono sul piatto caldo — è normale!"]
   },
   {
-    id:"r4", title:"Pan con Tomate", description:"La colazione catalana più semplice e perfetta. Cinque ingredienti, tecnica precisa, risultato divino.",
+    id:"r4", title:"Pan con Tomate",
+    description:"La colazione catalana più semplice e perfetta. Cinque ingredienti, tecnica precisa.",
     region:"Barcelona, Spagna", country:"Spagna",
     cover:"https://images.unsplash.com/photo-1620088191205-02058b8686d1?q=80&w=800&auto=format&fit=crop",
-    verified:false, author:"u3", likes:420, time:5,
-    ingredients:[{name:"Pane rustico (Coca o Ciabatta)",qty:"4 fette"},{name:"Pomodori molto maturi (Ramallet)",qty:"2"},{name:"Spicchio d'aglio",qty:"1"},{name:"Olio extravergine d'oliva",qty:"q.b."},{name:"Sale marino in fiocchi",qty:"q.b."}],
-    steps:["Affetta il pane spesso e tostalo finché è dorato e croccante.","Taglia lo spicchio d'aglio a metà e strofinalo leggermente sul pane caldo.","Taglia i pomodori a metà orizzontalmente.","Strofina energicamente i pomodori sul pane finché la polpa è tutta assorbita — butta via la buccia vuota.","Irrora generosamente con olio extravergine di oliva di qualità.","Cospargi con sale marino in fiocchi e servi subito."],
-    notes:["Non frullare mai i pomodori: devono essere strofinati direttamente sul pane.","L'ordine è tutto: prima aglio, poi pomodoro, poi olio, poi sale. Mai invertire.","Usa pomodori Ramallet (varietà catalana) se riesci a trovarli: fanno la differenza."]
+    verified:false, author:"Sofia Garcia", likes:420, time:5,
+    ingredients:[{name:"Pane rustico",qty:"4 fette"},{name:"Pomodori maturi",qty:"2"},{name:"Spicchio d'aglio",qty:"1"},{name:"Olio extravergine d'oliva",qty:"q.b."},{name:"Sale marino in fiocchi",qty:"q.b."}],
+    steps:[
+      {text:"Affetta il pane a fette spesse e tostalo finché è dorato e croccante.",timer:null},
+      {text:"Taglia lo spicchio d'aglio a metà e strofinalo leggermente sul pane caldo.",timer:null},
+      {text:"Taglia i pomodori a metà orizzontalmente.",timer:null},
+      {text:"Strofina energicamente i pomodori sul pane finché tutta la polpa è assorbita. Butta via la buccia vuota.",timer:null},
+      {text:"Irrora generosamente con olio extravergine di oliva di buona qualità.",timer:null},
+      {text:"Cospargi con sale marino in fiocchi. Servi immediatamente.",timer:null}
+    ],
+    notes:["Non frullare mai i pomodori: devono essere strofinati direttamente sul pane.","L'ordine è tutto: prima aglio, poi pomodoro, poi olio, poi sale.","Usa pomodori Ramallet se riesci a trovarli."]
   },
   {
-    id:"r5", title:"Ragù Napoletano", description:"Il sugo della domenica. Carne e pomodori cotti lentissimamente per 6 ore. Nonna approvata.",
+    id:"r5", title:"Ragù Napoletano",
+    description:"Il sugo della domenica. Carne e San Marzano cotti lentissimamente per 6 ore.",
     region:"Napoli, Italia", country:"Italia",
     cover:"https://images.unsplash.com/photo-1598866594230-a70186201114?q=80&w=800&auto=format&fit=crop",
-    verified:true, author:"u4", likes:2100, time:360,
+    verified:true, author:"Elena Esposito", likes:2100, time:360,
     ingredients:[{name:"Spezzatino di manzo",qty:"500 g"},{name:"Costine di maiale",qty:"500 g"},{name:"Passata di San Marzano",qty:"1.5 L"},{name:"Cipolle grandi",qty:"2"},{name:"Vino rosso",qty:"1 bicchiere"},{name:"Olio d'oliva",qty:"4 cucchiai"}],
-    steps:["Trita finemente le cipolle e scalda l'olio in una pentola grande e pesante.","Rosola la carne su tutti i lati a fuoco alto fino a formare una crosticina dorata.","Aggiungi le cipolle e cuoci finché diventano trasparenti.","Versa il vino rosso e lascia evaporare l'alcol completamente (circa 5 minuti).","Aggiungi la passata di San Marzano e un pizzico di sale.","Porta a un leggero bollore, poi abbassa il fuoco al minimo assoluto.","Copri parzialmente con un coperchio e lascia 'pippiare' (sobbollire lentissimamente) per 6 ore.","Mescola di tanto in tanto. Alla fine la salsa sarà scura, densa e profumata.","Servi il sugo con pasta, e la carne come secondo piatto separato."],
-    notes:["Il segreto è nel 'pippiare': il sugo deve appena fremere, quasi immobile. Non deve bollire.","6 ore sono il minimo. Le nonne napoletane lo cuociono anche 8 ore.","La carne si serve tradizionalmente separata dalla pasta, come secondo piatto."]
+    steps:[
+      {text:"Trita finemente le cipolle. Scalda l'olio in una pentola grande e pesante.",timer:null},
+      {text:"Rosola la carne su tutti i lati a fuoco alto fino a una bella crosticina dorata.",timer:null},
+      {text:"Aggiungi le cipolle e cuoci finché diventano trasparenti.",timer:300},
+      {text:"Versa il vino rosso e lascia evaporare l'alcol completamente.",timer:300},
+      {text:"Aggiungi la passata di San Marzano e un pizzico di sale. Porta a bollore.",timer:null},
+      {text:"Abbassa al minimo assoluto. Copri parzialmente con un coperchio.",timer:null},
+      {text:"Lascia 'pippiare' (sobbollire lentissimamente) per 6 ore. Mescola ogni tanto.",timer:21600},
+      {text:"La salsa sarà scura, densa, profumata. Servi il sugo con pasta, la carne come secondo.",timer:null}
+    ],
+    notes:["Il segreto è nel 'pippiare': il sugo deve appena fremere, quasi immobile.","6 ore sono il minimo — le nonne napoletane lo cuociono anche 8 ore.","La carne si serve tradizionalmente separata dalla pasta."]
   }
 ];
 
+let recipes = [];
 let activeFilter = 'Tutto';
-let searchQuery = '';
-let checkedIngredients = {};
+let ckRecipe = null, ckStep = 0;
+let ckInterval = null, ckTimerLeft = 0, ckTimerRunning = false, ckTimerTotal = 0;
 
-function setFilter(f, btn) {
-  activeFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderGrid();
+// ── FIREBASE DATABASE ──
+async function loadRecipes() {
+  recipes = [...DEFAULT_RECIPES];
+  renderGrid(); updateStats(); // show defaults immediately
+  try {
+    if (!window._db) { await waitForFirebase(); }
+    const q = window._fsQuery(
+      window._fsCollection(window._db, 'recipes'),
+      window._fsOrderBy('createdAt', 'desc')
+    );
+    const snap = await window._fsDocs(q);
+    const userRecipes = [];
+    snap.forEach(doc => userRecipes.push({ id: doc.id, ...doc.data() }));
+    recipes = [...DEFAULT_RECIPES, ...userRecipes];
+    renderGrid(); updateStats();
+  } catch(e) {
+    console.warn('Firebase load failed, using defaults:', e);
+  }
 }
 
-function filterRecipes() {
-  searchQuery = document.getElementById('search-input').value.toLowerCase();
-  renderGrid();
-}
-
-function getFiltered() {
-  return recipes.filter(r => {
-    if (activeFilter === 'Verificate' && !r.verified) return false;
-    if (activeFilter !== 'Tutto' && activeFilter !== 'Verificate' && !r.country.includes(activeFilter)) return false;
-    if (searchQuery && !r.title.toLowerCase().includes(searchQuery) && !r.region.toLowerCase().includes(searchQuery) && !r.description.toLowerCase().includes(searchQuery)) return false;
-    return true;
+function waitForFirebase() {
+  return new Promise(resolve => {
+    if (window._db) return resolve();
+    document.addEventListener('firebase-ready', resolve, { once: true });
+    setTimeout(resolve, 5000); // fallback timeout
   });
 }
 
-function renderGrid() {
-  const grid = document.getElementById('recipes-grid');
-  const filtered = getFiltered();
-  if (!filtered.length) {
-    grid.innerHTML = `<div class="no-results"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><p>Nessuna ricetta trovata.</p></div>`;
-    return;
+async function saveUserRecipes(newRecipe) {
+  try {
+    if (!window._db) { await waitForFirebase(); }
+    const docRef = await window._fsAddDoc(
+      window._fsCollection(window._db, 'recipes'),
+      { ...newRecipe, createdAt: window._fsTimestamp() }
+    );
+    // update local id to match Firestore doc id
+    newRecipe.id = docRef.id;
+    return true;
+  } catch(e) {
+    console.error('Firebase save failed:', e);
+    showToast('⚠️ Errore salvataggio — controlla Firestore');
+    return false;
   }
+}
+
+function updateStats() {
+  document.getElementById('stat-count').textContent = recipes.length;
+  document.getElementById('stat-countries').textContent = new Set(recipes.map(r=>r.country).filter(Boolean)).size;
+}
+
+function setFilter(btn) {
+  document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  renderGrid();
+}
+
+function renderGrid() {
+  const q = (document.getElementById('search-input').value||'').toLowerCase();
+  const filtered = recipes.filter(r => {
+    if (activeFilter === 'Verificata' && !r.verified) return false;
+    if (activeFilter !== 'Tutto' && activeFilter !== 'Verificata' && r.country !== activeFilter) return false;
+    if (q && !r.title.toLowerCase().includes(q) && !(r.region||'').toLowerCase().includes(q) && !(r.description||'').toLowerCase().includes(q)) return false;
+    return true;
+  });
+  const grid = document.getElementById('recipes-grid');
+  if (!filtered.length) { grid.innerHTML = '<div class="no-results">Nessuna ricetta trovata.</div>'; return; }
   grid.innerHTML = filtered.map(r => {
-    const u = users[r.author];
-    const timeLabel = r.time < 60 ? r.time + ' min' : Math.floor(r.time/60) + 'h ' + (r.time%60||'');
-    return `<a class="recipe-card" onclick="openRecipe('${r.id}'); return false;" href="#">
-      <div class="recipe-card-img">
-        <img src="${r.cover}" alt="${r.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800'" />
-        <div class="recipe-card-badges">
-          ${r.verified ? '<span class="badge badge-verified">⭐ Verificata</span>' : ''}
-          <span class="badge badge-time">⏱ ${timeLabel}</span>
+    const t = r.time < 60 ? r.time+'min' : Math.floor(r.time/60)+'h'+(r.time%60?r.time%60+'m':'');
+    return `<a class="rcard" onclick="openDetail('${r.id}');return false;" href="#">
+      <div class="rcard-img">
+        <img src="${r.cover||'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800'}" alt="${r.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800'" />
+        <div class="rcard-badges">
+          ${r.verified?'<span class="badge badge-v">⭐ Verificata</span>':''}
+          <span class="badge badge-t">⏱ ${t}</span>
         </div>
       </div>
-      <div class="recipe-card-body">
-        <div class="recipe-card-author">
-          <img src="${u.avatar}" alt="${u.name}" />
-          <div><div class="recipe-card-author-name">${u.name}</div><div class="recipe-card-author-region">${u.region}</div></div>
+      <div class="rcard-body">
+        <div class="rcard-author">
+          <div class="rcard-avatar">${(r.author||'?')[0].toUpperCase()}</div>
+          <div><div class="rcard-author-n">${r.author||'Anonimo'}</div><div class="rcard-author-r">${r.region||''}</div></div>
         </div>
-        <div class="recipe-card-title">${r.title}</div>
-        <div class="recipe-card-desc">${r.description}</div>
-        <div class="recipe-card-footer">
-          <div class="recipe-card-likes">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            ${r.likes.toLocaleString('it')}
-          </div>
-          <span class="cook-link">Vedi ricetta →</span>
+        <div class="rcard-title">${r.title}</div>
+        <div class="rcard-desc">${r.description||''}</div>
+        <div class="rcard-footer">
+          <div class="rcard-likes"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>${(r.likes||0).toLocaleString('it')}</div>
+          <button class="btn-cook" onclick="event.stopPropagation();startCooking('${r.id}')">Cucina →</button>
         </div>
       </div>
     </a>`;
   }).join('');
 }
 
-function openRecipe(id) {
-  const r = recipes.find(x => x.id === id);
-  const u = users[r.author];
-  if (!checkedIngredients[id]) checkedIngredients[id] = new Set();
-  const checked = checkedIngredients[id];
-  const timeLabel = r.time < 60 ? r.time + ' min' : Math.floor(r.time/60) + ' ore';
-
-  document.getElementById('modal-content').innerHTML = `
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-hero">
-      <img src="${r.cover}" alt="${r.title}" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800'" />
-      <div class="modal-hero-overlay"></div>
-      <div class="modal-hero-text">
-        <h2>${r.title}</h2>
-        <div class="region">${r.region} · ${timeLabel}</div>
-      </div>
+let detailChecked = {};
+function openDetail(id) {
+  const r = recipes.find(x => x.id === id); if(!r) return;
+  if (!detailChecked[id]) detailChecked[id] = new Set();
+  const ck = detailChecked[id];
+  const t = r.time < 60 ? r.time+' min' : Math.floor(r.time/60)+'h'+(r.time%60?' '+r.time%60+'min':'');
+  document.getElementById('detail-modal').innerHTML = `
+    <button class="modal-close-btn" onclick="closeDetail()">✕</button>
+    <div class="modal-hero-img">
+      <img src="${r.cover||'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800'}" alt="${r.title}" onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800'" />
+      <div class="modal-hero-ov"></div>
+      <div class="modal-hero-txt"><h2>${r.title}</h2><div class="region">${r.region||''} · ${t}</div></div>
     </div>
     <div class="modal-body">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
-        <img src="${u.avatar}" style="width:40px;height:40px;border-radius:50%;object-fit:cover" />
-        <div>
-          <div style="font-weight:500;font-size:14px">${u.name}</div>
-          <div style="font-size:12px;color:var(--text-muted)">${u.region}</div>
-        </div>
-        ${r.verified ? '<span style="margin-left:auto;background:rgba(201,168,76,.15);color:var(--gold);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:500">⭐ Verificata</span>' : ''}
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--terracotta);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:600;flex-shrink:0">${(r.author||'?')[0].toUpperCase()}</div>
+        <div><div style="font-weight:500;font-size:14px">${r.author||'Anonimo'}</div><div style="font-size:12px;color:var(--muted)">${r.region||''}</div></div>
+        ${r.verified?'<span style="margin-left:auto;background:rgba(201,168,76,.15);color:var(--gold);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:500">⭐ Verificata</span>':''}
       </div>
-      <p style="font-size:15px;color:var(--text-muted);line-height:1.65;margin-bottom:8px">${r.description}</p>
-
-      <div class="modal-section-title">Ingredienti</div>
-      <div id="ing-list-${id}">
-        ${r.ingredients.map((ing, i) => `
-          <div class="ingredient-row ${checked.has(i)?'checked':''}" onclick="toggleIng('${id}',${i},this)">
-            <div class="ing-check ${checked.has(i)?'on':''}">
-              ${checked.has(i) ? '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
-            </div>
-            <span class="ing-name">${ing.name}</span>
-            <span class="ing-qty">${ing.qty}</span>
-          </div>`).join('')}
-      </div>
-
-      ${r.notes && r.notes.length ? `
-        <div class="auth-box">
-          <div class="auth-box-title">⭐ Note di autenticità</div>
-          <ul>${r.notes.map(n=>`<li>${n}</li>`).join('')}</ul>
-        </div>` : ''}
-
-      <div class="modal-section-title">Preparazione</div>
-      ${r.steps.map((s, i) => `
+      <p style="font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:4px">${r.description||''}</p>
+      <div class="modal-st">Ingredienti</div>
+      <div>${(r.ingredients||[]).map((ing,i)=>`
+        <div class="ing-row ${ck.has(i)?'ck':''}" onclick="toggleIng('${id}',${i},this)">
+          <div class="ing-chk ${ck.has(i)?'on':''}">${ck.has(i)?'<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}</div>
+          <span class="ing-name">${ing.name}</span><span class="ing-qty">${ing.qty||''}</span>
+        </div>`).join('')}</div>
+      ${r.notes&&r.notes.length?`<div class="auth-box"><div class="auth-box-t">⭐ Note di autenticità</div><ul>${r.notes.map(n=>`<li>${n}</li>`).join('')}</ul></div>`:''}
+      <div class="modal-st">Preparazione</div>
+      ${(r.steps||[]).map((s,i)=>`
         <div class="step-row">
           <div class="step-n">${String(i+1).padStart(2,'0')}</div>
-          <div class="step-text">${s}</div>
+          <div><div class="step-txt">${s.text||s}</div>${(s.timer||0)>0?`<div class="step-timer-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Timer: ${fmtTime(s.timer)}</div>`:''}</div>
         </div>`).join('')}
-
-      <div class="modal-cta">
-        <button onclick="closeModal()">← Torna alle ricette</button>
-      </div>
+      <div class="modal-cta"><button class="btn-start-cooking" onclick="closeDetail();startCooking('${r.id}')">🍳 Inizia a Cucinare</button></div>
     </div>`;
-
-  document.getElementById('modal').classList.add('open');
+  document.getElementById('detail-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+function toggleIng(id,i,row) {
+  if(!detailChecked[id]) detailChecked[id]=new Set();
+  const s=detailChecked[id]; const chk=row.querySelector('.ing-chk');
+  if(s.has(i)){s.delete(i);row.classList.remove('ck');chk.classList.remove('on');chk.innerHTML='';}
+  else{s.add(i);row.classList.add('ck');chk.classList.add('on');chk.innerHTML='<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
+}
+function closeDetail(){document.getElementById('detail-overlay').classList.remove('open');document.body.style.overflow='';}
+function maybeCloseDetail(e){if(e.target===document.getElementById('detail-overlay'))closeDetail();}
 
-function toggleIng(recipeId, idx, row) {
-  if (!checkedIngredients[recipeId]) checkedIngredients[recipeId] = new Set();
-  const set = checkedIngredients[recipeId];
-  const chk = row.querySelector('.ing-check');
-  if (set.has(idx)) {
-    set.delete(idx);
-    row.classList.remove('checked');
-    chk.classList.remove('on');
-    chk.innerHTML = '';
+// COOKING MODE
+function startCooking(id) {
+  ckRecipe = recipes.find(x=>x.id===id); if(!ckRecipe) return;
+  ckStep = 0; clearCkTimer();
+  const el = document.getElementById('cooking-screen');
+  el.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  renderCookStep();
+  // show chat button + init chat
+  document.getElementById('ck-chat-btn').classList.add('visible');
+  initCkChat();
+}
+function closeCooking() {
+  clearCkTimer();
+  document.getElementById('cooking-screen').classList.remove('open');
+  document.body.style.overflow = '';
+  if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+  document.getElementById('ck-chat-btn').classList.remove('visible');
+  document.getElementById('ck-chat-panel').classList.remove('open');
+}
+function renderCookStep() {
+  const r = ckRecipe, steps = r.steps||[], i = ckStep, s = steps[i];
+  const txt = typeof s==='string'?s:s.text;
+  const timer = typeof s==='string'?0:(s.timer||0);
+  document.getElementById('ck-title').textContent = r.title;
+  document.getElementById('ck-progress').innerHTML = steps.map((_,idx)=>`<div class="ck-dot ${idx<=i?'done':''}"></div>`).join('');
+  document.getElementById('ck-step-label').textContent = `Passo ${i+1} di ${steps.length}`;
+  document.getElementById('ck-ing-strip').innerHTML = (r.ingredients||[]).map(ing=>`<div class="ck-ing-pill">${ing.name} · ${ing.qty||''}</div>`).join('');
+  document.getElementById('ck-num').textContent = String(i+1).padStart(2,'0');
+  document.getElementById('ck-text').textContent = txt;
+  clearCkTimer();
+  const timerDiv = document.getElementById('ck-timer');
+  if (timer > 0) { ckTimerLeft = timer; ckTimerTotal = timer; ckTimerRunning = false; renderTimerUI(timerDiv); }
+  else timerDiv.innerHTML = '';
+  const isLast = i === steps.length-1;
+  document.getElementById('ck-nav').innerHTML =
+    `${i>0?'<button class="ck-btn-prev" onclick="ckMove(-1)">← Indietro</button>':'<div></div>'}
+     <button class="${isLast?'ck-btn-finish':'ck-btn-next'}" onclick="${isLast?'finishCook()':'ckMove(1)'}">${isLast?'🎉 Fatto!':'Passo successivo →'}</button>`;
+}
+function renderTimerUI(container) {
+  container.innerHTML = `
+    <div class="timer-wrap">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="timer-val" id="tval">${fmtTime(ckTimerLeft)}</span>
+      <button class="timer-ctrl" id="tplay" onclick="toggleTimer()">${ckTimerRunning?'⏸':'▶'}</button>
+      <button class="timer-ctrl timer-reset" onclick="resetTimer()">↺</button>
+    </div>
+    <div class="timer-done-msg" id="tdone">⏰ Tempo scaduto!</div>`;
+}
+function toggleTimer() {
+  if (ckTimerRunning) {
+    clearCkTimer(); ckTimerRunning=false;
+    const b=document.getElementById('tplay'); if(b) b.textContent='▶';
   } else {
-    set.add(idx);
-    row.classList.add('checked');
-    chk.classList.add('on');
-    chk.innerHTML = '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    ckTimerRunning=true;
+    const b=document.getElementById('tplay'); if(b) b.textContent='⏸';
+    ckInterval = setInterval(()=>{
+      ckTimerLeft--;
+      const v=document.getElementById('tval'); if(v) v.textContent=fmtTime(ckTimerLeft);
+      if (ckTimerLeft<=0) {
+        clearCkTimer(); ckTimerRunning=false;
+        const d=document.getElementById('tdone'); if(d) d.classList.add('show');
+        const b=document.getElementById('tplay'); if(b) b.textContent='▶';
+        if(navigator.vibrate) navigator.vibrate([400,100,400,100,400]);
+      }
+    },1000);
+  }
+}
+function resetTimer() {
+  clearCkTimer(); ckTimerRunning=false; ckTimerLeft=ckTimerTotal;
+  const v=document.getElementById('tval'); if(v) v.textContent=fmtTime(ckTimerLeft);
+  const d=document.getElementById('tdone'); if(d) d.classList.remove('show');
+  const b=document.getElementById('tplay'); if(b) b.textContent='▶';
+}
+function clearCkTimer() { if(ckInterval){clearInterval(ckInterval);ckInterval=null;} ckTimerRunning=false; }
+function ckMove(dir) { clearCkTimer(); ckStep=Math.max(0,Math.min((ckRecipe.steps||[]).length-1,ckStep+dir)); renderCookStep(); }
+function finishCook() { clearCkTimer(); closeCooking(); showToast('🎉 Ricetta completata! Buon appetito!'); }
+function fmtTime(s) {
+  if(s<=0) return '0:00';
+  const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
+  if(h>0) return `${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  return `${m}:${String(sec).padStart(2,'0')}`;
+}
+
+// ADD RECIPE — 3-PHASE AI FLOW
+let ingIdx=0, stepIdx=0;
+let aiSuggestions = {}; // field -> {original, suggested}
+
+function openAdd() {
+  ingIdx=0; stepIdx=0; aiSuggestions={};
+  document.getElementById('f-raw').value='';
+  document.getElementById('f-author').value='';
+  goToPhase1();
+  document.getElementById('add-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAdd(){document.getElementById('add-overlay').classList.remove('open');document.body.style.overflow='';}
+function maybeCloseAdd(e){if(e.target===document.getElementById('add-overlay'))closeAdd();}
+
+function setAddStep(n) {
+  [1,2,3].forEach(i => {
+    const el = document.getElementById('asi-'+i);
+    el.classList.remove('active','done');
+    if (i < n) el.classList.add('done');
+    if (i === n) el.classList.add('active');
+  });
+}
+
+function goToPhase1() {
+  document.getElementById('add-phase-1').style.display='';
+  document.getElementById('add-phase-2').style.display='none';
+  document.getElementById('add-phase-3').style.display='none';
+  setAddStep(1);
+}
+function backToPhase1() { goToPhase1(); }
+
+function goToPhase3() {
+  // validate required fields
+  const title = document.getElementById('fr-title').value.trim();
+  const region = document.getElementById('fr-region').value.trim();
+  const country = document.getElementById('fr-country').value;
+  if (!title||!region||!country) { showToast('⚠️ Compila almeno nome, regione e paese'); return; }
+  // build final preview
+  renderFinalPreview();
+  document.getElementById('add-phase-2').style.display='none';
+  document.getElementById('add-phase-3').style.display='';
+  setAddStep(3);
+}
+function backToPhase2() {
+  document.getElementById('add-phase-3').style.display='none';
+  document.getElementById('add-phase-2').style.display='';
+  setAddStep(2);
+}
+
+function renderFinalPreview() {
+  const title = document.getElementById('fr-title').value.trim();
+  const region = document.getElementById('fr-region').value.trim();
+  const country = document.getElementById('fr-country').value;
+  const time = parseInt(document.getElementById('fr-time').value)||30;
+  const desc = document.getElementById('fr-desc').value.trim();
+  const t = time < 60 ? time+' min' : Math.floor(time/60)+'h'+(time%60?' '+time%60+'min':'');
+
+  const ings = collectIngredients();
+  const steps = collectSteps();
+
+  document.getElementById('final-preview').innerHTML = `
+    <div class="final-preview-card">
+      <h3>${title}</h3>
+      <div style="margin-bottom:10px">
+        <span class="final-preview-tag">📍 ${region}</span>
+        <span class="final-preview-tag">🌍 ${country}</span>
+        <span class="final-preview-tag">⏱ ${t}</span>
+      </div>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:14px">${desc}</p>
+      <div style="font-weight:600;font-size:13px;margin-bottom:6px">Ingredienti (${ings.length})</div>
+      <div class="final-ing-list">${ings.map(i=>`<div class="final-ing-item"><span>${i.name}${i.qty?' — '+i.qty:''}</span></div>`).join('')}</div>
+      <div style="font-weight:600;font-size:13px;margin:14px 0 8px">Passaggi (${steps.length})</div>
+      ${steps.map((s,i)=>`<div class="final-step-item"><div class="final-step-n">${String(i+1).padStart(2,'0')}</div><div class="final-step-txt">${s.text}${s.timer>0?' <span style="color:var(--terracotta);font-size:11px">⏱ '+fmtTime(s.timer)+'</span>':''}</div></div>`).join('')}
+    </div>`;
+}
+
+function collectIngredients() {
+  const ings=[];
+  document.querySelectorAll('[data-in]').forEach(el=>{
+    const name=el.value.trim(); if(!name) return;
+    const qty=(document.querySelector(`[data-iq="${el.dataset.in}"]`)||{}).value||'';
+    ings.push({name,qty});
+  });
+  return ings;
+}
+function collectSteps() {
+  const steps=[];
+  document.querySelectorAll('[data-sn]').forEach(el=>{
+    const text=el.value.trim(); if(!text) return;
+    const timerEl=document.querySelector(`[data-st="${el.dataset.sn}"]`);
+    const timer=timerEl&&timerEl.value?parseInt(timerEl.value)||0:0;
+    steps.push({text,timer});
+  });
+  return steps;
+}
+
+// ── AI CALL ──
+async function runAI() {
+  const raw = document.getElementById('f-raw').value.trim();
+  if (!raw || raw.length < 20) { showToast('⚠️ Scrivi almeno qualcosa sulla ricetta!'); return; }
+
+  document.getElementById('add-phase-1').style.display='none';
+  document.getElementById('add-phase-2').style.display='';
+  document.getElementById('ai-loading-block').style.display='';
+  document.getElementById('ai-review-fields').style.display='none';
+  setAddStep(2);
+
+  const msgs = ['Sto leggendo la ricetta…','Individuo gli ingredienti…','Struttura i passaggi…','Stimo i tempi di cottura…','Quasi pronto…'];
+  let mi=0;
+  const loadingMsgEl = document.getElementById('ai-loading-msg');
+  const msgInterval = setInterval(()=>{ loadingMsgEl.textContent=msgs[Math.min(++mi,msgs.length-1)]; },1400);
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1500,
+        system:`Sei un esperto culinario per l'app Autentico. L'utente ti manda una ricetta scritta in modo informale. 
+Devi strutturarla in JSON. Rispondi SOLO con JSON valido, nessun testo fuori dal JSON, nessun markdown.
+
+Formato richiesto:
+{
+  "title": "nome ricetta",
+  "region": "città, paese",
+  "country": "uno di: Italia|Giappone|Spagna|Francia|Messico|India|Grecia|Marocco|Altro",
+  "time": numero_minuti_intero,
+  "description": "descrizione breve e accattivante, max 2 frasi",
+  "ingredients": [{"name":"...","qty":"..."}],
+  "steps": [{"text":"istruzione chiara e specifica","timer":secondi_o_0}],
+  "notes": ["nota autenticità 1","nota autenticità 2"],
+  "changes": ["descrizione cambiamento 1 che hai fatto","cambiamento 2"]
+}
+
+Regole:
+- Sii FEDELE alla ricetta originale. Non inventare ingredienti non menzionati.
+- Se mancano quantità, usa "q.b." o stima ragionevole e segnalalo nei changes.
+- Dividi i passaggi in azioni singole e chiare.
+- Aggiungi timer (in secondi) solo dove c'è un tempo preciso di cottura/attesa.
+- Il campo "changes" deve elencare solo le aggiunte/modifiche che hai fatto rispetto al testo originale.
+- Se qualcosa non è chiaro, usa il tuo giudizio culinario e segnalalo nei changes.`,
+        messages:[{role:'user', content: `Struttura questa ricetta:\n\n${raw}`}]
+      })
+    });
+    clearInterval(msgInterval);
+    const data = await res.json();
+    let raw2 = (data.content?.[0]?.text||'{}').replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(raw2);
+    populateReviewFields(parsed, raw);
+  } catch(err) {
+    clearInterval(msgInterval);
+    // fallback: show empty form
+    populateReviewFields({}, raw);
+    showToast('⚠️ IA non disponibile — compila manualmente');
   }
 }
 
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('modal')) {
-    document.getElementById('modal').classList.remove('open');
-    document.body.style.overflow = '';
+function populateReviewFields(ai, originalText) {
+  document.getElementById('ai-loading-block').style.display='none';
+  document.getElementById('ai-review-fields').style.display='';
+  ingIdx=0; stepIdx=0;
+  document.getElementById('ing-dyn-list').innerHTML='';
+  document.getElementById('step-dyn-list').innerHTML='';
+
+  const set = (id, val) => { const el=document.getElementById(id); if(el&&val!==undefined&&val!==null) el.value=val; };
+
+  set('fr-title', ai.title||'');
+  set('fr-region', ai.region||'');
+  set('fr-time', ai.time||'');
+  set('fr-desc', ai.description||'');
+  set('fr-img', '');
+  if (ai.country) {
+    const sel = document.getElementById('fr-country');
+    for (let opt of sel.options) { if(opt.value===ai.country){sel.value=ai.country;break;} }
+  }
+
+  // show AI badge on fields that were filled
+  const fields = ['title','region','country','time','desc'];
+  fields.forEach(f => {
+    const rb = document.getElementById('rb-'+f);
+    if (rb && ai[f==='desc'?'description':f]) {
+      rb.innerHTML = '<span class="badge-ai badge-ai-changed">✦ IA</span>';
+    }
+  });
+
+  // ingredients
+  if (ai.ingredients && ai.ingredients.length) {
+    ai.ingredients.forEach(ing => addIngRow(ing.name, ing.qty));
+    const rb = document.getElementById('rb-ings');
+    if (rb) rb.innerHTML = `<span class="badge-ai badge-ai-changed">✦ IA — ${ai.ingredients.length} ingredienti</span>`;
+  } else { addIngRow(); addIngRow(); }
+
+  // steps
+  if (ai.steps && ai.steps.length) {
+    ai.steps.forEach(s => addStepRow(s.text, s.timer||0));
+    const rb = document.getElementById('rb-steps');
+    if (rb) rb.innerHTML = `<span class="badge-ai badge-ai-changed">✦ IA — ${ai.steps.length} passaggi</span>`;
+  } else { addStepRow(); addStepRow(); }
+
+  // notes
+  if (ai.notes && ai.notes.length) {
+    set('fr-notes', ai.notes.join('\n'));
+    const rb = document.getElementById('rb-notes');
+    if (rb) rb.innerHTML = '<span class="badge-ai badge-ai-added">✦ IA — aggiunta</span>';
+    const rs = document.getElementById('rs-notes');
+    if (rs) {
+      rs.style.display='';
+      rs.innerHTML=`<div class="sug-label">✦ L'IA ha aggiunto note di autenticità</div>
+        <div class="sug-text">${ai.notes.map(n=>'· '+n).join('<br>')}</div>
+        <div class="sug-actions"><button class="sug-reject" onclick="document.getElementById('fr-notes').value='';document.getElementById('rs-notes').style.display='none'">Rimuovi</button></div>`;
+    }
+  }
+
+  // changes summary
+  if (ai.changes && ai.changes.length) {
+    const sum = document.getElementById('ai-changes-summary');
+    sum.style.display='';
+    sum.innerHTML=`<div class="ai-changes-summary">
+      <div class="sum-title">✦ Cosa ha fatto l'IA</div>
+      <ul>${ai.changes.map(c=>`<li>${c}</li>`).join('')}</ul>
+    </div>`;
+  }
+
+  document.getElementById('ai-review-subtitle').textContent = 
+    'L\'IA ha strutturato la tua ricetta. Controlla ogni campo e modifica liberamente.';
+}
+
+function addIngRow(name='', qty='') {
+  const i=ingIdx++;
+  const div=document.createElement('div'); div.className='dyn-row'; div.id='ir'+i;
+  div.innerHTML=`<input type="text" placeholder="Ingrediente" data-in="${i}" value="${name.replace(/"/g,'&quot;')}" /><input type="text" placeholder="Quantità (es: 400 g)" data-iq="${i}" value="${qty.replace(/"/g,'&quot;')}" style="max-width:140px" /><button class="rm-btn" onclick="document.getElementById('ir${i}').remove()">✕</button>`;
+  document.getElementById('ing-dyn-list').appendChild(div);
+}
+function addStepRow(text='', timer=0) {
+  const i=stepIdx++;
+  const div=document.createElement('div'); div.className='step-dyn-row'; div.id='sr'+i;
+  div.innerHTML=`<div class="step-num-lbl">${i+1}</div><div class="step-inner"><input type="text" placeholder="Descrivi il passaggio…" data-sn="${i}" value="${text.replace(/"/g,'&quot;')}" /><div class="step-timer-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Timer (sec):</span><input type="number" placeholder="es: 300" data-st="${i}" min="0" value="${timer||''}" /></div></div><button class="step-rm" onclick="document.getElementById('sr${i}').remove()">✕</button>`;
+  document.getElementById('step-dyn-list').appendChild(div);
+}
+
+function saveRecipe() {
+  const title=document.getElementById('fr-title').value.trim();
+  const region=document.getElementById('fr-region').value.trim();
+  const country=document.getElementById('fr-country').value;
+  const desc=document.getElementById('fr-desc').value.trim();
+  if(!title||!region||!country){showToast('⚠️ Compila almeno nome, regione e paese');return;}
+  const ingredients=collectIngredients();
+  if(!ingredients.length){showToast('⚠️ Aggiungi almeno un ingrediente');return;}
+  const steps=collectSteps();
+  if(!steps.length){showToast('⚠️ Aggiungi almeno un passaggio');return;}
+  const notes=(document.getElementById('fr-notes').value.trim()||'').split('\n').map(n=>n.trim()).filter(Boolean);
+  const cover=document.getElementById('fr-img').value.trim()||'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop';
+  const newR={
+    id:'u'+Date.now(), title, description:desc||title, region, country, cover,
+    verified:document.getElementById('fr-verified').checked,
+    author:document.getElementById('f-author').value.trim()||'Anonimo',
+    likes:0, time:parseInt(document.getElementById('fr-time').value)||30,
+    ingredients, steps, notes
+  };
+  recipes.unshift(newR);
+  renderGrid(); updateStats(); closeAdd();
+  showToast('⏳ Pubblicazione in corso…');
+  saveUserRecipes(newR).then(ok => {
+    if (ok) showToast('✓ Ricetta pubblicata e salvata!');
+  });
+}
+
+
+// ── COOKING CHAT ──
+let ckChatHistory = [];
+let ckChatOpen = false;
+
+function initCkChat() {
+  ckChatHistory = [];
+  const msgs = document.getElementById('ck-chat-msgs');
+  msgs.innerHTML = '';
+  const r = ckRecipe;
+  // welcome message
+  appendCkMsg('ai', `Ciao! Sono qui per aiutarti con <strong>${r.title}</strong>. Chiedimi qualsiasi cosa mentre cucini! 👨‍🍳`);
+}
+
+function toggleCkChat() {
+  ckChatOpen = !ckChatOpen;
+  document.getElementById('ck-chat-panel').classList.toggle('open', ckChatOpen);
+  document.getElementById('ck-chat-btn').textContent = ckChatOpen ? '✕' : '💬';
+  if (ckChatOpen) setTimeout(()=>document.getElementById('ck-chat-input').focus(), 300);
+}
+
+function quickAsk(q) {
+  document.getElementById('ck-chat-input').value = q;
+  sendCkChat();
+}
+
+function appendCkMsg(role, html, id) {
+  const msgs = document.getElementById('ck-chat-msgs');
+  const div = document.createElement('div');
+  div.className = 'ck-msg ' + role;
+  if (id) div.id = id;
+  div.innerHTML = html;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+async function sendCkChat() {
+  const input = document.getElementById('ck-chat-input');
+  const q = input.value.trim();
+  if (!q) return;
+  input.value = '';
+
+  appendCkMsg('user', q);
+  const typingId = 'typing-' + Date.now();
+  appendCkMsg('typing', 'L'IA sta pensando…', typingId);
+
+  ckChatHistory.push({ role: 'user', content: q });
+
+  // build context from current step
+  const r = ckRecipe;
+  const step = r.steps[ckStep];
+  const stepTxt = typeof step === 'string' ? step : step.text;
+  const context = `Ricetta: ${r.title} (${r.region}).
+Passo corrente (${ckStep+1}/${r.steps.length}): "${stepTxt}".
+Ingredienti: ${(r.ingredients||[]).map(i=>i.name+' '+i.qty).join(', ')}.
+Note: ${(r.notes||[]).join('; ')}.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        system: `Sei un chef esperto che assiste l'utente mentre cucina. Sei integrato nell'app Autentico.
+Rispondi in italiano, in modo BREVE e PRATICO (max 3-4 frasi). Usa emoji con parsimonia.
+Contesto ricetta attuale: ${context}
+Adatta sempre la risposta al passo corrente della ricetta.`,
+        messages: ckChatHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Non ho capito, riprova!';
+    ckChatHistory.push({ role: 'assistant', content: reply });
+
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) { typingEl.className = 'ck-msg ai'; typingEl.innerHTML = reply; }
+    document.getElementById('ck-chat-msgs').scrollTop = 99999;
+  } catch(e) {
+    const typingEl = document.getElementById(typingId);
+    if (typingEl) { typingEl.className = 'ck-msg ai'; typingEl.textContent = 'Errore di connessione. Riprova!'; }
   }
 }
 
-// close on Escape
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function showToast(msg) {
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDetail();closeAdd();}});
 
-renderGrid();
+loadRecipes();  // async: loads defaults first, then Firebase
 </script>
+
+<!-- COOKING CHAT BUTTON -->
+<button class="ck-chat-btn" id="ck-chat-btn" onclick="toggleCkChat()" title="Chatta con l'IA">💬</button>
+
+<!-- COOKING CHAT PANEL -->
+<div class="ck-chat-panel" id="ck-chat-panel">
+  <div class="ck-chat-header">
+    <div class="ck-chat-header-left">
+      <div class="ck-chat-header-icon">✦</div>
+      <div>
+        <div class="ck-chat-header-title">Chef IA</div>
+        <div class="ck-chat-header-sub">Chiedimi qualsiasi cosa sulla ricetta</div>
+      </div>
+    </div>
+    <button class="ck-chat-close" onclick="toggleCkChat()">✕</button>
+  </div>
+  <div class="ck-chat-msgs" id="ck-chat-msgs"></div>
+  <div class="ck-chat-quick" id="ck-chat-quick">
+    <button class="ck-quick-btn" onclick="quickAsk('Posso sostituire questo ingrediente?')">Sostituire ingrediente?</button>
+    <button class="ck-quick-btn" onclick="quickAsk('Quanto deve essere caldo il fuoco?')">Temperatura fuoco?</button>
+    <button class="ck-quick-btn" onclick="quickAsk('Come capisco se è pronto?')">Come capisco se è pronto?</button>
+    <button class="ck-quick-btn" onclick="quickAsk('Ho sbagliato questo passo, come recupero?')">Ho sbagliato, come recupero?</button>
+  </div>
+  <div class="ck-chat-input-row">
+    <input class="ck-chat-input" id="ck-chat-input" placeholder="Chiedi all'IA…" onkeydown="if(event.key==='Enter')sendCkChat()" />
+    <button class="ck-chat-send" onclick="sendCkChat()">➤</button>
+  </div>
+</div>
 </body>
 </html>
